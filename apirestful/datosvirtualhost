@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+WSGIDaemonProcess sampleapp python-path=/var/www/sampleapp:/var/www/sampleapp/env/lib/python2.7/site-packages
+WSGIProcessGroup sampleapp
+WSGIScriptAlias / /var/www/sampleapp/sampleapp/wsgi.py
+</VirtualHost>
+
+
+
+/home/ezequiel/repositorios/FlowTechnology/AppInternaFlow/AppInternaFlowSite/AppInternaFlowSite/
+/home/ezequiel/repositorios/FlowTechnology/AppInternaFlow/venv/

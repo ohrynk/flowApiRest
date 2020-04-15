@@ -1,0 +1,11 @@
+venv/**
+db.sqlite3
+AppInternaFlowSite/settings.py
+backend/migrations/**
+apirestful/migrations/**
+polls/migrations/**
+polls/__pycache__/
+apirestful/__pycache__/
+backend/__pycache__/
+AppInternaFlowSite/__pycache__/
+
