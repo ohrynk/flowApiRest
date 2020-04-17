@@ -26,3 +26,13 @@ def test_post_token_other():
     response_json = json.loads(response.text)
     token = jsonpath.jsonpath(response_json, 'token')
     assert response.status_code == 200
+
+
+def test_get_obtener_paises():
+    ruta = "http://127.0.0.1:8000/v1/paises/"
+    pais='Bolivia'
+    sigla='BO'
+    body = json.dumps({'nombre': pais, 'sigla': sigla})
+    headers = {'Content-Type':'application/json','Authorization':'Token 3289b551c28b65b32fe6c8b94215121d2bc36b7c'}
+    response = requests.post(ruta, body, headers=headers)
+    assert response.status_code == 201
