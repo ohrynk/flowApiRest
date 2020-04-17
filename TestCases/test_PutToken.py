@@ -28,7 +28,7 @@ def test_post_token_other():
     assert response.status_code == 200
 
 
-def test_get_obtener_paises():
+def test_get_insert_paises():
     ruta = "http://127.0.0.1:8000/v1/paises/"
     pais='Bolivia'
     sigla='BO'
