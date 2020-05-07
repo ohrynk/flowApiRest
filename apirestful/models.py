@@ -55,12 +55,13 @@ class Empleado(models.Model):
     GENERO = (
         ('M', 'Masculino'),
         ('F', 'Femenino'),
-        ('V', 'Variado'),
+        ('O', 'Otro'),
     )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='empleado')
     nombre           = models.CharField(max_length=50)
     apellido         = models.CharField(max_length=50)
     email            = models.CharField(max_length=100, verbose_name='Email')
-    reporta          = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    reporta          = models.ForeignKey(User, on_delete=models.CASCADE, null=True,related_name='reporta')
     oficina          = models.ForeignKey(Oficina, on_delete=models.CASCADE, null=True)
     nrodocumento     = models.CharField(max_length=30, null=True, blank=True, verbose_name='Nro. Documento')
     tipodocumento    = models.ForeignKey(Tipodocumento, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Tipo Documento')

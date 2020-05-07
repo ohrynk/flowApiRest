@@ -6,13 +6,40 @@ from rest_framework import serializers
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
-
+        fields = ['url', 'username', 'password','email']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
+
+
+
+
+class EmpleadoSerializer(serializers.HyperlinkedModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Empleado
+        fields = [
+            'nombre', 'apellido','email', 'reporta', 'oficina',
+            'nrodocumento','tipodocumento','cbu', 'fechanacimiento',
+            'genero', 'nacionalidad', 'telefono', 'direccion',
+            'ciudad', 'codigopostal',
+            'user']
+
+    def create(self, validated_data):
+        user_data = validated_data.pop('user')
+        password     = user_data['password']
+        group = Group.objects.get(name='Empleado')
+        user = User.objects.create(**user_data)
+        user.set_password(password)
+        user.save()
+        user.groups.add(group)
+        empleado = Empleado.objects.create(user=user, **validated_data)
+        return empleado
 
 
 class PaisSerializer(serializers.HyperlinkedModelSerializer):
@@ -61,10 +88,6 @@ class OficinaSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class EmpleadoSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model  = Empleado
-        fields = '__all__'
 
 class TipoAusenciaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
